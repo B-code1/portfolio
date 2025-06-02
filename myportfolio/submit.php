@@ -1,11 +1,10 @@
 <?php
 
 
-
 require __DIR__ . '/../vendor/autoload.php';
 // Ensure you have PHPMailer installed via Composer
 
-
+use Dotenv\Dotenv;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -20,6 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
+    // Load environment variables
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+
     $mail = new PHPMailer(true);
 
     try {
@@ -27,8 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'jepkemoi75@gmail.com'; // Your Gmail address
-        $mail->Password = 'vbfu rrto vebi sufg';   // Your Gmail App Password
+        $mail->Username = $_ENV['SMTP_USERNAME'];
+        $mail->Password = $_ENV['SMTP_PASSWORD'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
@@ -45,15 +48,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->AltBody = $mail->Body;
 
         $mail->send();
-    
+
         http_response_code(200);
         header("Location: thank_you.html");
-     
-
         exit();
 
-
-       
     } catch (Exception $e) {
         http_response_code(500);
         echo "Sorry, something went wrong. Mailer Error: {$mail->ErrorInfo}";
@@ -62,4 +61,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     http_response_code(403);
     echo "There was a problem with your submission. Please try again.";
 }
-?>
