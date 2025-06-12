@@ -1,9 +1,8 @@
-
-<<<<<<< Updated upstream
 .env
+vendors/
+# Ignore node_modules directory
 node_modules/
-
-
-vendor/
-=======
->>>>>>> Stashed changes
+# Ignore build output directory
+dist/
+# Ignore log files
+*.log
