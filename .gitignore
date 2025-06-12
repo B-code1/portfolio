@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 .env
 vendors/
 # Ignore node_modules directory
@@ -7,6 +8,9 @@ node_modules/
 dist/
 # Ignore log files
 *.log
+=======
+/images
+>>>>>>> Stashed changes
 =======
 /images
 >>>>>>> Stashed changes
